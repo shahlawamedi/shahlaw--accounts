@@ -91,18 +91,20 @@
             border: 1px solid var(--card-border); width: 100%; max-width: 340px; text-align: center;
         }
 
-        /* Pattern Puzzle Grid */
-        .pat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 16px 0; }
-        .pat-box { aspect-ratio: 1; border-radius: 12px; background: #3a506b; font-size: 1.5rem; display: flex; justify-content: center; align-items: center; cursor: pointer; border: 2px solid transparent; }
-        .pat-box.selected { border-color: var(--accent); background: #5bc0be; color: #0b132b; }
+        /* Tower Canvas */
+        #towerCanvas { background: #0b132b; border-radius: 12px; margin: 10px auto; display: block; border: 1px solid var(--card-border); }
 
-        /* Snake Canvas */
+        /* Snake Arcade Canvas */
         #snakeCanvas { background: #0b132b; border-radius: 12px; margin: 10px auto; display: block; border: 1px solid var(--card-border); }
 
-        /* Dice Board to 100 */
-        .dice-board { display: grid; grid-template-columns: repeat(10, 1fr); gap: 2px; background: #0b132b; padding: 6px; border-radius: 12px; margin: 12px 0; max-height: 240px; overflow-y: auto; }
-        .dice-cell { aspect-ratio: 1; background: #1c2541; font-size: 0.55rem; color: var(--text-sub); display: flex; justify-content: center; align-items: center; border-radius: 3px; position: relative; }
-        .dice-cell.player { background: #ec4899; color: white; font-weight: bold; box-shadow: 0 0 6px #ec4899; }
+        /* Snakes & Ladders Board */
+        .snakes-board { display: grid; grid-template-columns: repeat(10, 1fr); gap: 2px; background: #0b132b; padding: 6px; border-radius: 12px; margin: 10px 0; max-height: 250px; overflow-y: auto; }
+        .snakes-cell { aspect-ratio: 1; background: #1c2541; font-size: 0.5rem; color: var(--text-sub); display: flex; flex-direction: column; justify-content: center; align-items: center; border-radius: 3px; position: relative; }
+        .snakes-cell.snake-head { background: rgba(239, 68, 68, 0.2); border: 1px solid #ef4444; }
+        .snakes-cell.ladder-bottom { background: rgba(16, 185, 129, 0.2); border: 1px solid #10b981; }
+
+        /* Player markers */
+        .p-marker { font-size: 0.75rem; line-height: 1; }
 
         /* IQ Memory Grid */
         .iq-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 16px 0; }
@@ -132,20 +134,20 @@
 
     <div class="btn-group">
         <button class="action-btn" onclick="shareProfile()"><i class="fa-solid fa-share-nodes"></i> Share</button>
-        <button class="action-btn puzzle-btn" onclick="openPatPuzzle()"><i class="fa-solid fa-puzzle-piece"></i> Pattern Puzzle</button>
+        <button class="action-btn puzzle-btn" onclick="openTowerGame()"><i class="fa-solid fa-building"></i> Tower Stack</button>
         <button class="action-btn snake-btn" onclick="openSnake()"><i class="fa-solid fa-gamepad"></i> Snake</button>
-        <button class="action-btn dice-btn" onclick="openDiceGame()"><i class="fa-solid fa-dice"></i> Dice to 100</button>
+        <button class="action-btn dice-btn" onclick="openSnakesLadders()"><i class="fa-solid fa-dice"></i> Snakes & Ladders</button>
         <button class="action-btn iq-btn" onclick="openIQ()"><i class="fa-solid fa-brain"></i> IQ Test</button>
     </div>
 </div>
 
-<!-- Pattern Puzzle Modal -->
-<div class="modal" id="patModal">
+<!-- Tower Stacker Modal -->
+<div class="modal" id="towerModal">
     <div class="modal-content">
-        <h3>Color Match Puzzle</h3>
-        <p style="font-size: 0.8rem; color: var(--text-sub); margin-top: 4px;">Tap boxes to match all colors to Cyan!</p>
-        <div class="pat-grid" id="patGrid"></div>
-        <button class="close-btn" onclick="closeModal('patModal')">Close</button>
+        <h3>Tower Builder</h3>
+        <p style="font-size: 0.8rem; color: var(--text-sub);">Tap screen to place blocks!</p>
+        <canvas id="towerCanvas" width="260" height="280"></canvas>
+        <button class="close-btn" onclick="closeTower()">Close</button>
     </div>
 </div>
 
@@ -159,14 +161,14 @@
     </div>
 </div>
 
-<!-- Dice Game to 100 Modal -->
-<div class="modal" id="diceModal">
+<!-- Snakes & Ladders vs Bot Modal -->
+<div class="modal" id="snakesModal">
     <div class="modal-content">
-        <h3>Race to Tile 100</h3>
-        <p id="diceStatus" style="font-size: 0.85rem; color: var(--text-sub);">Current Tile: 1</p>
-        <div class="dice-board" id="diceBoard"></div>
-        <button class="action-btn dice-btn" onclick="rollDice()" style="width: 100%; justify-content: center; margin-top: 6px;"><i class="fa-solid fa-dice"></i> Roll Dice</button>
-        <button class="close-btn" onclick="closeModal('diceModal')">Close</button>
+        <h3>Snakes & Ladders (vs Bot)</h3>
+        <p id="snakesStatus" style="font-size: 0.82rem; color: var(--accent); margin: 4px 0;">You: Tile 1 | Bot: Tile 1</p>
+        <div class="snakes-board" id="snakesBoard"></div>
+        <button class="action-btn dice-btn" id="rollBtn" onclick="playTurn()" style="width: 100%; justify-content: center;"><i class="fa-solid fa-dice"></i> Roll Dice</button>
+        <button class="close-btn" onclick="closeModal('snakesModal')">Close</button>
     </div>
 </div>
 
@@ -192,31 +194,139 @@
     }
     function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 
-    /* --- PATTERN MATCH PUZZLE SYSTEM --- */
-    let patState = [0, 1, 0, 1, 0, 1, 0, 1, 0];
-    function openPatPuzzle() {
-        document.getElementById('patModal').style.display = 'flex';
-        renderPatPuzzle();
+    /* --- TOWER BUILDER STACKER GAME --- */
+    let tCanvas = document.getElementById("towerCanvas"), tCtx = tCanvas.getContext("2d");
+    let towerBlocks = [], currentBlock, tDirection = 2, tLoop, towerScore = 0;
+    
+    function openTowerGame() {
+        document.getElementById('towerModal').style.display = 'flex';
+        towerScore = 0;
+        towerBlocks = [{x: 80, y: 260, w: 100, h: 20}];
+        spawnTowerBlock();
+        clearInterval(tLoop);
+        tLoop = setInterval(updateTower, 20);
     }
-    function renderPatPuzzle() {
-        const grid = document.getElementById('patGrid');
-        grid.innerHTML = '';
-        patState.forEach((val, i) => {
-            const box = document.createElement('div');
-            box.className = `pat-box ${val === 1 ? 'selected' : ''}`;
-            box.innerText = val === 1 ? '★' : '☆';
-            box.onclick = () => togglePat(i);
-            grid.appendChild(box);
+    function closeTower() { clearInterval(tLoop); closeModal('towerModal'); }
+
+    function spawnTowerBlock() {
+        let prev = towerBlocks[towerBlocks.length - 1];
+        currentBlock = {x: 0, y: prev.y - 20, w: prev.w, h: 20};
+        tDirection = Math.abs(tDirection);
+    }
+
+    function updateTower() {
+        currentBlock.x += tDirection;
+        if (currentBlock.x <= 0 || currentBlock.x + currentBlock.w >= 260) tDirection *= -1;
+        
+        tCtx.fillStyle = "#0b132b"; tCtx.fillRect(0,0,260,280);
+        // Draw static stack
+        towerBlocks.forEach((b, i) => {
+            tCtx.fillStyle = i === 0 ? "#3b82f6" : `hsl(${(i * 25) % 360}, 70%, 60%)`;
+            tCtx.fillRect(b.x, b.y, b.w, b.h);
         });
+        // Draw moving block
+        tCtx.fillStyle = "#38bdf8";
+        tCtx.fillRect(currentBlock.x, currentBlock.y, currentBlock.w, currentBlock.h);
+
+        tCtx.fillStyle = "#ffffff";
+        tCtx.font = "14px sans-serif";
+        tCtx.fillText("Height: " + towerScore, 10, 25);
     }
-    function togglePat(i) {
-        patState[i] = patState[i] === 1 ? 0 : 1;
-        if (i % 3 > 0) patState[i - 1] = patState[i - 1] === 1 ? 0 : 1;
-        if (i % 3 < 2) patState[i + 1] = patState[i + 1] === 1 ? 0 : 1;
-        renderPatPuzzle();
-        if (patState.every(v => v === 1)) {
-            setTimeout(() => alert("🎉 Pattern Solved! Perfect Logic!"), 100);
+
+    tCanvas.addEventListener('click', dropBlock);
+    function dropBlock() {
+        let prev = towerBlocks[towerBlocks.length - 1];
+        let diff = currentBlock.x - prev.x;
+        
+        if (Math.abs(diff) >= currentBlock.w) {
+            alert("💥 Tower Collapsed! Score Height: " + towerScore);
+            openTowerGame();
+            return;
         }
+
+        // Trim block
+        if (diff > 0) { currentBlock.w -= diff; }
+        else { currentBlock.x = prev.x; currentBlock.w += diff; }
+
+        towerBlocks.push({...currentBlock});
+        towerScore++;
+
+        if (towerBlocks.length > 10) {
+            towerBlocks.forEach(b => b.y += 20);
+        }
+        spawnTowerBlock();
+    }
+
+    /* --- SNAKES & LADDERS (VS BOT) GAME SYSTEM --- */
+    let playerPos = 1, botPos = 1, isTurn = true;
+    const snakes = { 98: 78, 95: 56, 88: 24, 62: 18, 48: 26, 36: 6 };
+    const ladders = { 4: 14, 9: 31, 20: 38, 28: 84, 51: 67, 71: 91 };
+
+    function openSnakesLadders() {
+        document.getElementById('snakesModal').style.display = 'flex';
+        playerPos = 1; botPos = 1; isTurn = true;
+        renderSnakesBoard();
+    }
+
+    function renderSnakesBoard() {
+        const board = document.getElementById('snakesBoard');
+        board.innerHTML = '';
+        document.getElementById('snakesStatus').innerText = `🔴 You: Tile ${playerPos} | 🤖 Bot: Tile ${botPos}`;
+        
+        for (let i = 100; i >= 1; i--) {
+            const cell = document.createElement('div');
+            cell.className = 'snakes-cell';
+            if (snakes[i]) cell.classList.add('snake-head');
+            if (ladders[i]) cell.classList.add('ladder-bottom');
+
+            let txt = i;
+            if (snakes[i]) txt += '🐍';
+            if (ladders[i]) txt += '🪜';
+            
+            let pString = '';
+            if (playerPos === i) pString += '🔴';
+            if (botPos === i) pString += '🤖';
+
+            cell.innerHTML = `<span>${txt}</span><span class="p-marker">${pString}</span>`;
+            board.appendChild(cell);
+        }
+    }
+
+    function playTurn() {
+        if (!isTurn) return;
+        
+        // Player Roll
+        let roll = Math.floor(Math.random() * 6) + 1;
+        playerPos += roll;
+        if (snakes[playerPos]) playerPos = snakes[playerPos];
+        if (ladders[playerPos]) playerPos = ladders[playerPos];
+
+        if (playerPos >= 100) {
+            playerPos = 100; renderSnakesBoard();
+            setTimeout(() => alert("🎉 You beat the Bot to Tile 100!"), 100);
+            return;
+        }
+
+        isTurn = false;
+        document.getElementById('rollBtn').disabled = true;
+        renderSnakesBoard();
+
+        // Bot Turn Delay
+        setTimeout(() => {
+            let bRoll = Math.floor(Math.random() * 6) + 1;
+            botPos += bRoll;
+            if (snakes[botPos]) botPos = snakes[botPos];
+            if (ladders[botPos]) botPos = ladders[botPos];
+
+            if (botPos >= 100) {
+                botPos = 100; renderSnakesBoard();
+                setTimeout(() => alert("🤖 Bot reached Tile 100 first! Try again."), 100);
+            } else {
+                isTurn = true;
+                document.getElementById('rollBtn').disabled = false;
+                renderSnakesBoard();
+            }
+        }, 800);
     }
 
     /* --- SNAKE GAME SYSTEM --- */
@@ -254,36 +364,6 @@
             if (diffY > 0 && dy === 0) { dx = 0; dy = 10; } else if (diffY < 0 && dy === 0) { dx = 0; dy = -10; }
         }
     });
-
-    /* --- DICE TO 100 GAME SYSTEM --- */
-    let playerPos = 1;
-    function openDiceGame() {
-        document.getElementById('diceModal').style.display = 'flex';
-        playerPos = 1;
-        renderDiceBoard();
-    }
-    function renderDiceBoard() {
-        const board = document.getElementById('diceBoard');
-        board.innerHTML = '';
-        document.getElementById('diceStatus').innerText = `Current Tile: ${playerPos} / 100`;
-        for (let i = 1; i <= 100; i++) {
-            const cell = document.createElement('div');
-            cell.className = `dice-cell ${i === playerPos ? 'player' : ''}`;
-            cell.innerText = i;
-            board.appendChild(cell);
-        }
-    }
-    function rollDice() {
-        let roll = Math.floor(Math.random() * 6) + 1;
-        playerPos += roll;
-        if (playerPos >= 100) {
-            playerPos = 100;
-            renderDiceBoard();
-            setTimeout(() => alert("🎲 Winner! You reached Tile 100!"), 100);
-        } else {
-            renderDiceBoard();
-        }
-    }
 
     /* --- IQ MEMORY TEST SYSTEM WITH IQ SCORES --- */
     let iqSeq = [], userSeq = [], iqLevel = 0;
