@@ -2,23 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shahlaw Sherzad | Official Hub</title>
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Shahlaw Hub">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Shahlaw Sherzad | Links & Arcade</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --bg-color: #0b132b;
-            --card-bg: rgba(28, 37, 65, 0.7);
-            --card-border: rgba(255, 255, 255, 0.1);
+            --card-bg: rgba(28, 37, 65, 0.65);
+            --card-border: rgba(255, 255, 255, 0.12);
             --accent: #38bdf8;
             --text-main: #ffffff;
             --text-sub: #94a3b8;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; user-select: none; }
 
         body {
             background: radial-gradient(circle at 50% 0%, #1c2541 0%, #0b132b 100%);
@@ -27,81 +24,493 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 24px 16px;
+            padding: 20px 16px;
         }
 
-        .container { width: 100%; max-width: 400px; text-align: center; }
-
-        .profile-img {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid var(--accent);
-            box-shadow: 0 0 25px rgba(56, 189, 248, 0.5);
-            margin-bottom: 12px;
+        .container { width: 100%; max-width: 420px; text-align: center; }
+        
+        /* Profile Header */
+        .profile-avatar {
+            width: 88px; height: 88px; border-radius: 50%;
+            border: 3px solid var(--accent); margin: 0 auto 12px;
+            background: #1c2541; display: flex; align-items: center; justify-content: center;
+            font-size: 2.2rem; color: var(--accent);
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
         }
-
         h1 { font-size: 1.6rem; font-weight: 700; margin-bottom: 4px; }
-        p.bio { color: var(--text-sub); font-size: 0.95rem; margin-bottom: 20px; }
+        p.bio { color: var(--text-sub); font-size: 0.85rem; margin-bottom: 20px; }
 
-        .links-wrapper { display: flex; flex-direction: column; gap: 12px; }
+        /* Links List */
+        .links-wrapper { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
+        
+        .link-card {
+            display: flex; align-items: center; background: var(--card-bg);
+            border: 1px solid var(--card-border); border-radius: 16px;
+            padding: 12px 16px; text-decoration: none; color: #ffffff;
+            transition: transform 0.15s ease, background 0.15s ease; cursor: pointer;
+        }
+        .link-card:active { transform: scale(0.97); background: rgba(28, 37, 65, 0.9); }
+        .icon-box {
+            width: 40px; height: 40px; border-radius: 12px;
+            display: flex; justify-content: center; align-items: center;
+            font-size: 1.2rem; margin-right: 14px;
+        }
+        .link-info { flex: 1; text-align: left; }
+        .link-info h3 { font-size: 0.95rem; font-weight: 600; }
+        .link-info p { font-size: 0.75rem; color: var(--text-sub); }
+        .arrow-icon { font-size: 0.85rem; opacity: 0.6; }
 
-        .social-card {
-            display: flex; align-items: center; padding: 14px 18px;
+        /* Icon Colors */
+        .yt { background: rgba(239, 68, 68, 0.15); color: #ef4444; }
+        .ig { background: rgba(236, 72, 153, 0.15); color: #ec4899; }
+        .tt { background: rgba(56, 189, 248, 0.15); color: #38bdf8; }
+        .fb { background: rgba(59, 130, 246, 0.15); color: #3b82f6; }
+        .sc { background: rgba(234, 179, 8, 0.15); color: #eab308; }
+        .arcade { background: rgba(168, 85, 247, 0.15); color: #c084fc; }
+
+        /* Section Title */
+        .section-title { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-sub); margin: 20px 0 10px; text-align: left; }
+
+        /* Arcade Grid inside Account Web */
+        .games-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        .game-card {
             background: var(--card-bg); border: 1px solid var(--card-border);
-            border-radius: 16px; color: var(--text-main); text-decoration: none;
-            backdrop-filter: blur(10px); transition: transform 0.2s;
+            border-radius: 16px; padding: 14px; text-align: center;
+            cursor: pointer; transition: transform 0.15s ease;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
         }
-        .social-card:active { transform: scale(0.98); }
-        .social-card i { font-size: 1.5rem; width: 35px; }
-        .card-text { flex-grow: 1; text-align: left; padding-left: 10px; }
-        .card-text .platform { font-weight: 600; font-size: 1rem; display: block; }
-        .card-text .handle { color: var(--text-sub); font-size: 0.8rem; }
+        .game-card:active { transform: scale(0.95); }
+        .game-card i { font-size: 1.8rem; margin-bottom: 6px; }
+        .game-card h4 { font-size: 0.85rem; font-weight: 600; color: var(--text-main); }
+        .game-card span { font-size: 0.7rem; color: var(--text-sub); margin-top: 2px; }
 
-        .youtube i { color: #ff0000; }
-        .instagram i { color: #e1306c; }
-        .tiktok i { color: #25f4ee; }
-        .facebook i { color: #1877f2; }
-        .snapchat i { color: #fffc00; }
-        .arcade-card i { color: #a855f7; }
-
-        .btn-group { margin-top: 20px; display: flex; justify-content: center; }
-
-        .action-btn {
-            background: linear-gradient(135deg, #38bdf8, #3b82f6);
-            color: white; border: none; padding: 12px 24px; border-radius: 30px;
-            font-size: 0.9rem; font-weight: 600; cursor: pointer;
-            box-shadow: 0 4px 14px rgba(56, 189, 248, 0.3); display: inline-flex; align-items: center; gap: 8px;
+        /* Game Modals */
+        .modal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(11, 19, 43, 0.95); backdrop-filter: blur(12px);
+            z-index: 1000; justify-content: center; align-items: center; padding: 12px;
         }
+        .modal-content {
+            background: #1c2541; padding: 16px; border-radius: 24px;
+            border: 1px solid var(--card-border); width: 100%; max-width: 360px; text-align: center;
+            position: relative; max-height: 95vh; overflow-y: auto;
+        }
+        .close-btn { 
+            background: transparent; color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.4); 
+            padding: 8px 24px; border-radius: 20px; cursor: pointer; margin-top: 14px; font-size: 0.85rem; font-weight: bold;
+        }
+
+        /* Game Specific CSS */
+        .nokia-3310-shell { background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%); border: 4px solid #334155; border-radius: 36px 36px 48px 48px; padding: 16px 14px 20px 14px; width: 260px; margin: 0 auto; box-shadow: 0 10px 25px rgba(0,0,0,0.8); }
+        .nokia-screen-frame { background: #9bbc0f; border: 4px solid #0f172a; border-radius: 8px; padding: 4px; box-shadow: inset 0 0 6px rgba(0,0,0,0.4); margin-bottom: 16px; }
+        .nokia-header { font-family: monospace; font-size: 0.65rem; color: #0f380f; display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 2px; }
+        #nokiaCanvas { background: #9bbc0f; display: block; margin: 0 auto; }
+        .nokia-dpad-container { display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); gap: 6px; width: 160px; height: 160px; margin: 0 auto; }
+        .dpad-btn { background: linear-gradient(180deg, #334155, #0f172a); color: #38bdf8; border: 1px solid #475569; border-radius: 12px; display: flex; justify-content: center; align-items: center; font-size: 1.2rem; font-weight: bold; cursor: pointer; }
+        .dpad-btn:active { background: #38bdf8; color: #000; }
+        .dpad-btn.action-btn { font-size: 0.8rem; color: #ef4444; }
+
+        .bb-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; background: #0b132b; padding: 8px; border-radius: 12px; margin: 12px 0; aspect-ratio: 1; }
+        .bb-cell { aspect-ratio: 1; background: #1c2541; border-radius: 6px; cursor: pointer; transition: background 0.1s; }
+        .bb-cell.filled { background: #38bdf8; box-shadow: 0 0 8px #38bdf8; }
+
+        .sl-wrapper { position: relative; width: 100%; max-width: 320px; margin: 0 auto; }
+        .sl-board { display: grid; grid-template-columns: repeat(10, 1fr); gap: 2px; background: #0b132b; padding: 4px; border-radius: 12px; aspect-ratio: 1; }
+        .sl-cell { background: #1e293b; font-size: 0.5rem; color: #64748b; display: flex; flex-direction: column; justify-content: center; align-items: center; border-radius: 2px; font-weight: bold; position: relative; }
+        .sl-cell.snake { background: #450a0a; color: #f87171; }
+        .sl-cell.ladder { background: #064e3b; color: #34d399; }
+        .sl-token { position: absolute; font-size: 0.75rem; z-index: 5; }
+        .dice-box { width: 44px; height: 44px; background: #fff; border-radius: 10px; margin: 8px auto; display: flex; justify-content: center; align-items: center; font-size: 1.4rem; color: #0f172a; font-weight: bold; }
+
+        .grid-2048 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; background: #0b132b; padding: 8px; border-radius: 12px; margin: 12px 0; touch-action: none; width: 100%; aspect-ratio: 1; }
+        .cell-2048 { aspect-ratio: 1; background: #1c2541; border-radius: 8px; display: flex; justify-content: center; align-items: center; font-weight: bold; font-size: 1.2rem; color: #fff; }
+        .grid-slide { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; background: #0b132b; padding: 8px; border-radius: 12px; margin: 12px 0; aspect-ratio: 1; }
+        .cell-slide { aspect-ratio: 1; background: #38bdf8; color: #0b132b; border-radius: 8px; display: flex; justify-content: center; align-items: center; font-weight: bold; font-size: 1.1rem; cursor: pointer; }
+        .cell-slide.empty { background: transparent; border: 1px dashed var(--card-border); cursor: default; }
+
+        .iq-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 12px 0; aspect-ratio: 1; }
+        .iq-box { border-radius: 16px; opacity: 0.3; cursor: pointer; transition: opacity 0.15s, transform 0.1s; }
+        .iq-box.active { opacity: 1; transform: scale(0.96); box-shadow: 0 0 15px currentColor; }
+
+        #towerCanvas { background: #0b132b; border-radius: 12px; margin: 10px auto; display: block; border: 1px solid var(--card-border); cursor: pointer; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <img src="photo.jpg" alt="Shahlaw Sherzad" class="profile-img" onerror="this.src='https://github.com/shahlawamedi.png'">
+    <!-- Header -->
+    <div class="profile-avatar"><i class="fa-solid fa-user"></i></div>
     <h1>Shahlaw Sherzad</h1>
     <p class="bio">Digital Creator & Vlogger | Kurdistan 🏔️</p>
 
+    <!-- Social Links -->
     <div class="links-wrapper">
-        <a href="https://youtube.com/@shahlaw_amedi" target="_blank" class="social-card youtube"><i class="fa-brands fa-youtube"></i><div class="card-text"><span class="platform">YouTube</span><span class="handle">@shahlaw_amedi</span></div><i class="fa-solid fa-chevron-right" style="font-size:0.8rem; opacity:0.5;"></i></a>
-        <a href="https://instagram.com/shahlaw.amedi" target="_blank" class="social-card instagram"><i class="fa-brands fa-instagram"></i><div class="card-text"><span class="platform">Instagram</span><span class="handle">@shahlaw.amedi</span></div><i class="fa-solid fa-chevron-right" style="font-size:0.8rem; opacity:0.5;"></i></a>
-        <a href="https://tiktok.com/@shahlawsherzad1" target="_blank" class="social-card tiktok"><i class="fa-brands fa-tiktok"></i><div class="card-text"><span class="platform">TikTok Main</span><span class="handle">@shahlawsherzad1</span></div><i class="fa-solid fa-chevron-right" style="font-size:0.8rem; opacity:0.5;"></i></a>
-        <a href="https://tiktok.com/@shr.shop3" target="_blank" class="social-card tiktok"><i class="fa-brands fa-tiktok"></i><div class="card-text"><span class="platform">TikTok Shop</span><span class="handle">@shr.shop3</span></div><i class="fa-solid fa-chevron-right" style="font-size:0.8rem; opacity:0.5;"></i></a>
-        <a href="https://facebook.com/Shahlaw Amedi" target="_blank" class="social-card facebook"><i class="fa-brands fa-facebook"></i><div class="card-text"><span class="platform">Facebook</span><span class="handle">Shahlaw Amedi</span></div><i class="fa-solid fa-chevron-right" style="font-size:0.8rem; opacity:0.5;"></i></a>
-        <a href="https://snapchat.com/add/shahlawsherzad" target="_blank" class="social-card snapchat"><i class="fa-brands fa-snapchat"></i><div class="card-text"><span class="platform">Snapchat</span><span class="handle">shahlawsherzad</span></div><i class="fa-solid fa-chevron-right" style="font-size:0.8rem; opacity:0.5;"></i></a>
-        <a href="games.html" class="social-card arcade-card"><i class="fa-solid fa-gamepad"></i><div class="card-text"><span class="platform">Arcade Games Center</span><span class="handle">Play Mini-Games</span></div><i class="fa-solid fa-chevron-right" style="font-size:0.8rem; opacity:0.5;"></i></a>
+        <a href="https://youtube.com/@shahlaw_amedi" target="_blank" class="link-card">
+            <div class="icon-box yt"><i class="fa-brands fa-youtube"></i></div>
+            <div class="link-info"><h3>YouTube</h3><p>@shahlaw_amedi</p></div>
+            <i class="fa-solid fa-chevron-right arrow-icon"></i>
+        </a>
+        <a href="https://instagram.com/shahlaw.amedi" target="_blank" class="link-card">
+            <div class="icon-box ig"><i class="fa-brands fa-instagram"></i></div>
+            <div class="link-info"><h3>Instagram</h3><p>@shahlaw.amedi</p></div>
+            <i class="fa-solid fa-chevron-right arrow-icon"></i>
+        </a>
+        <a href="https://tiktok.com/@shahlawsherzad1" target="_blank" class="link-card">
+            <div class="icon-box tt"><i class="fa-brands fa-tiktok"></i></div>
+            <div class="link-info"><h3>TikTok Main</h3><p>@shahlawsherzad1</p></div>
+            <i class="fa-solid fa-chevron-right arrow-icon"></i>
+        </a>
+        <a href="https://facebook.com/Shahlaw Amedi" target="_blank" class="link-card">
+            <div class="icon-box fb"><i class="fa-brands fa-facebook"></i></div>
+            <div class="link-info"><h3>Facebook</h3><p>Shahlaw Amedi</p></div>
+            <i class="fa-solid fa-chevron-right arrow-icon"></i>
+        </a>
+        <a href="https://snapchat.com/add/shahlawsherzad" target="_blank" class="link-card">
+            <div class="icon-box sc"><i class="fa-brands fa-snapchat"></i></div>
+            <div class="link-info"><h3>Snapchat</h3><p>shahlawsherzad</p></div>
+            <i class="fa-solid fa-chevron-right arrow-icon"></i>
+        </a>
     </div>
 
-    <div class="btn-group">
-        <button class="action-btn" onclick="shareProfile()"><i class="fa-solid fa-share-nodes"></i> Share Profile</button>
+    <!-- Arcade Section Header -->
+    <div class="section-title">Arcade Games Center</div>
+
+    <!-- Mini-Game Buttons -->
+    <div class="games-grid">
+        <div class="game-card" onclick="openGame('nokiaModal', initNokia)">
+            <i class="fa-solid fa-gamepad" style="color: #8bac0f;"></i>
+            <h4>Nokia Snake</h4>
+            <span>D-Pad Controls</span>
+        </div>
+        <div class="game-card" onclick="openGame('blockBlastModal', initBlockBlast)">
+            <i class="fa-solid fa-shapes" style="color: #38bdf8;"></i>
+            <h4>Block Blast</h4>
+            <span>Clear Lines</span>
+        </div>
+        <div class="game-card" onclick="openGame('towerModal', initTower)">
+            <i class="fa-solid fa-cubes" style="color: #38bdf8;"></i>
+            <h4>3D Stack Tower</h4>
+            <span>Tap to Stack</span>
+        </div>
+        <div class="game-card" onclick="openGame('snakesModal', initSL)">
+            <i class="fa-solid fa-dice" style="color: #ec4899;"></i>
+            <h4>Snakes & Ladders</h4>
+            <span>Board vs AI</span>
+        </div>
+        <div class="game-card" onclick="openGame('m2048Modal', init2048)">
+            <i class="fa-solid fa-hand-pointer" style="color: #f59e0b;"></i>
+            <h4>2048 Touch</h4>
+            <span>Swipe Merge</span>
+        </div>
+        <div class="game-card" onclick="openGame('iqModal', initIQ)">
+            <i class="fa-solid fa-brain" style="color: #a855f7;"></i>
+            <h4>IQ Memory</h4>
+            <span>Pattern Test</span>
+        </div>
+        <div class="game-card" onclick="openGame('slideModal', initSlide)">
+            <i class="fa-solid fa-hashtag" style="color: #10b981;"></i>
+            <h4>15-Tile Slide</h4>
+            <span>Tap to Shift</span>
+        </div>
+    </div>
+</div>
+
+<!-- GAME MODALS -->
+<div class="modal" id="nokiaModal">
+    <div class="modal-content">
+        <div class="nokia-3310-shell">
+            <div class="nokia-screen-frame">
+                <div class="nokia-header"><span>SNAKE</span><span id="nokiaScore">SCORE: 0</span></div>
+                <canvas id="nokiaCanvas" width="160" height="140"></canvas>
+            </div>
+            <div class="nokia-dpad-container">
+                <div></div><button class="dpad-btn" onclick="setNokiaDir(0,-1)">▲</button><div></div>
+                <button class="dpad-btn" onclick="setNokiaDir(-1,0)">◀</button>
+                <button class="dpad-btn action-btn" onclick="initNokia()">OK</button>
+                <button class="dpad-btn" onclick="setNokiaDir(1,0)">▶</button>
+                <button class="dpad-btn action-btn" onclick="stopNokia()">C</button>
+                <button class="dpad-btn" onclick="setNokiaDir(0,1)">▼</button><div></div>
+            </div>
+        </div>
+        <button class="close-btn" onclick="closeGame('nokiaModal', stopNokia)">Close</button>
+    </div>
+</div>
+
+<div class="modal" id="blockBlastModal">
+    <div class="modal-content">
+        <h3>Block Blast</h3>
+        <p id="bbScore" style="font-size: 0.8rem; color: var(--accent); margin-bottom: 6px;">Score: 0</p>
+        <div class="bb-grid" id="bbGrid"></div>
+        <button class="close-btn" onclick="closeGame('blockBlastModal')">Close</button>
+    </div>
+</div>
+
+<div class="modal" id="towerModal">
+    <div class="modal-content">
+        <h3>3D Stack Tower</h3>
+        <p style="font-size: 0.8rem; color: var(--text-sub); margin-bottom: 8px;">Tap anywhere to drop the block!</p>
+        <canvas id="towerCanvas" width="260" height="260"></canvas>
+        <button class="close-btn" onclick="closeGame('towerModal', stopTower)">Close</button>
+    </div>
+</div>
+
+<div class="modal" id="snakesModal">
+    <div class="modal-content">
+        <h3>Snakes & Ladders</h3>
+        <p id="slStatus" style="font-size: 0.8rem; color: var(--accent); margin-bottom:6px;">Your Turn! Roll the dice.</p>
+        <div class="sl-wrapper"><div class="sl-board" id="slBoard"></div></div>
+        <div class="dice-box" id="diceDisplay">🎲</div>
+        <button class="game-card" onclick="rollSLDice()" style="width:100%; flex-direction:row; gap:8px; margin-top:8px;"><i class="fa-solid fa-dice"></i> Roll Dice</button>
+        <button class="close-btn" onclick="closeGame('snakesModal')">Close</button>
+    </div>
+</div>
+
+<div class="modal" id="m2048Modal">
+    <div class="modal-content">
+        <h3>2048 Touch Merge</h3>
+        <p style="font-size: 0.8rem; color: var(--text-sub);">Swipe to slide tiles!</p>
+        <div class="grid-2048" id="g2048"></div>
+        <button class="close-btn" onclick="closeGame('m2048Modal')">Close</button>
+    </div>
+</div>
+
+<div class="modal" id="iqModal">
+    <div class="modal-content">
+        <h3>IQ Memory Test</h3>
+        <p id="iqStatus" style="font-size: 0.8rem; color: var(--text-sub); margin-bottom:8px;">Watch the pattern...</p>
+        <div class="iq-grid">
+            <div class="iq-box" id="b0" style="background:#ef4444;" onclick="pressIQ(0)"></div>
+            <div class="iq-box" id="b1" style="background:#3b82f6;" onclick="pressIQ(1)"></div>
+            <div class="iq-box" id="b2" style="background:#10b981;" onclick="pressIQ(2)"></div>
+            <div class="iq-box" id="b3" style="background:#f59e0b;" onclick="pressIQ(3)"></div>
+        </div>
+        <button class="close-btn" onclick="closeGame('iqModal')">Close</button>
+    </div>
+</div>
+
+<div class="modal" id="slideModal">
+    <div class="modal-content">
+        <h3>15-Tile Slide</h3>
+        <p style="font-size: 0.8rem; color: var(--text-sub);">Tap adjacent tiles to shift into space!</p>
+        <div class="grid-slide" id="slideBoard"></div>
+        <button class="close-btn" onclick="closeGame('slideModal')">Close</button>
     </div>
 </div>
 
 <script>
-    function shareProfile() {
-        if (navigator.share) { navigator.share({ title: 'Shahlaw Sherzad', url: window.location.href }); }
-        else { navigator.clipboard.writeText(window.location.href); alert('Link copied to clipboard!'); }
+    function openGame(id, initFunc) {
+        document.getElementById(id).style.display = 'flex';
+        if (initFunc) initFunc();
+    }
+    function closeGame(id, stopFunc) {
+        document.getElementById(id).style.display = 'none';
+        if (stopFunc) stopFunc();
+    }
+
+    // NOKIA SNAKE
+    let nCanvas = document.getElementById("nokiaCanvas"), nCtx = nCanvas.getContext("2d");
+    let nSnake, nFood, ndx, ndy, nLoop, nScore, nGameActive = false;
+
+    function initNokia() {
+        nSnake = [{x: 80, y: 70}, {x: 70, y: 70}, {x: 60, y: 70}];
+        ndx = 10; ndy = 0; nScore = 0; nGameActive = true;
+        document.getElementById('nokiaScore').innerText = "SCORE: 0";
+        spawnNokiaFood();
+        clearInterval(nLoop);
+        nLoop = setInterval(updateNokia, 120);
+    }
+    function stopNokia() { nGameActive = false; clearInterval(nLoop); }
+    function spawnNokiaFood() { nFood = { x: Math.floor(Math.random() * 16) * 10, y: Math.floor(Math.random() * 14) * 10 }; }
+    function setNokiaDir(x, y) {
+        if (!nGameActive) return;
+        if (x === 1 && ndx === 0) { ndx = 10; ndy = 0; }
+        else if (x === -1 && ndx === 0) { ndx = -10; ndy = 0; }
+        else if (y === -1 && ndy === 0) { ndx = 0; ndy = -10; }
+        else if (y === 1 && ndy === 0) { ndx = 0; ndy = 10; }
+    }
+    window.addEventListener('keydown', e => {
+        if (e.key === 'ArrowUp') setNokiaDir(0, -1);
+        else if (e.key === 'ArrowDown') setNokiaDir(0, 1);
+        else if (e.key === 'ArrowLeft') setNokiaDir(-1, 0);
+        else if (e.key === 'ArrowRight') setNokiaDir(1, 0);
+    });
+    function updateNokia() {
+        if (!nGameActive) return;
+        let head = {x: nSnake[0].x + ndx, y: nSnake[0].y + ndy};
+        if (head.x < 0 || head.x >= 160 || head.y < 0 || head.y >= 140 || nSnake.some(s => s.x === head.x && s.y === head.y)) {
+            nGameActive = false; clearInterval(nLoop); alert("Game Over! Score: " + nScore); return;
+        }
+        nSnake.unshift(head);
+        if (head.x === nFood.x && head.y === nFood.y) {
+            nScore += 10; document.getElementById('nokiaScore').innerText = "SCORE: " + nScore; spawnNokiaFood();
+        } else { nSnake.pop(); }
+        nCtx.fillStyle = "#9bbc0f"; nCtx.fillRect(0, 0, 160, 140);
+        nCtx.fillStyle = "#0f380f";
+        nCtx.fillRect(nFood.x + 1, nFood.y + 1, 8, 8);
+        nSnake.forEach(s => nCtx.fillRect(s.x + 1, s.y + 1, 8, 8));
+    }
+
+    // BLOCK BLAST
+    let bbGridData = Array(25).fill(0), bbScoreVal = 0;
+    function initBlockBlast() { bbGridData = Array(25).fill(0); bbScoreVal = 0; document.getElementById('bbScore').innerText = "Score: 0"; renderBlockBlast(); }
+    function renderBlockBlast() {
+        let grid = document.getElementById('bbGrid'); grid.innerHTML = '';
+        bbGridData.forEach((val, i) => {
+            let cell = document.createElement('div');
+            cell.className = 'bb-cell' + (val ? ' filled' : '');
+            cell.onclick = () => toggleBlockBlast(i); grid.appendChild(cell);
+        });
+    }
+    function toggleBlockBlast(idx) { bbGridData[idx] = bbGridData[idx] ? 0 : 1; checkBlockBlastLines(); renderBlockBlast(); }
+    function checkBlockBlastLines() {
+        let cleared = 0;
+        for (let r = 0; r < 5; r++) {
+            let full = true; for (let c = 0; c < 5; c++) if (!bbGridData[r * 5 + c]) full = false;
+            if (full) { cleared++; for (let c = 0; c < 5; c++) bbGridData[r * 5 + c] = 0; }
+        }
+        for (let c = 0; c < 5; c++) {
+            let full = true; for (let r = 0; r < 5; r++) if (!bbGridData[r * 5 + c]) full = false;
+            if (full) { cleared++; for (let r = 0; r < 5; r++) bbGridData[r * 5 + c] = 0; }
+        }
+        if (cleared > 0) { bbScoreVal += cleared * 50; document.getElementById('bbScore').innerText = "Score: " + bbScoreVal; }
+    }
+
+    // 3D STACK TOWER
+    let tCanvas = document.getElementById("towerCanvas"), tCtx = tCanvas.getContext("2d");
+    let tBlocks, tCur, tSpeed, tLoop, tScore;
+    function initTower() { tScore = 0; tSpeed = 2.5; tBlocks = [{x: 80, y: 220, w: 100, h: 20, col: "#38bdf8"}]; spawnTowerBlock(); clearInterval(tLoop); tLoop = setInterval(drawTower, 20); }
+    function stopTower() { clearInterval(tLoop); }
+    function spawnTowerBlock() { let prev = tBlocks[tBlocks.length - 1]; let hue = (tScore * 25) % 360; tCur = {x: 0, y: prev.y - 20, w: prev.w, h: 20, col: `hsl(${hue}, 80%, 60%)`}; tSpeed = Math.abs(tSpeed); }
+    function drawTower() {
+        tCur.x += tSpeed; if (tCur.x <= 0 || tCur.x + tCur.w >= 260) tSpeed *= -1;
+        tCtx.fillStyle = "#0b132b"; tCtx.fillRect(0, 0, 260, 260);
+        tBlocks.forEach(b => drawBlock(b)); drawBlock(tCur);
+        tCtx.fillStyle = "#fff"; tCtx.font = "bold 14px sans-serif"; tCtx.fillText("Score: " + tScore, 10, 25);
+    }
+    function drawBlock(b) { tCtx.fillStyle = b.col; tCtx.fillRect(b.x, b.y, b.w, b.h); tCtx.fillStyle = "rgba(0,0,0,0.25)"; tCtx.fillRect(b.x, b.y + b.h - 4, b.w, 4); }
+    tCanvas.onclick = function() {
+        let prev = tBlocks[tBlocks.length - 1]; let diff = tCur.x - prev.x;
+        if (Math.abs(diff) >= tCur.w) { alert("Tower Collapsed! Final Score: " + tScore); initTower(); return; }
+        if (diff > 0) tCur.w -= diff; else { tCur.x = prev.x; tCur.w += diff; }
+        tBlocks.push({...tCur}); tScore++; if (tBlocks.length > 8) tBlocks.forEach(b => b.y += 20); spawnTowerBlock();
+    };
+
+    // SNAKES & LADDERS
+    let pPos = 1, bPos = 1, slTurn = true;
+    const snakes = { 98: 78, 95: 75, 93: 73, 87: 24, 64: 60, 62: 19, 49: 11, 47: 26, 16: 6 };
+    const ladders = { 4: 14, 9: 31, 20: 38, 28: 84, 40: 59, 51: 67, 63: 81, 71: 91 };
+    function initSL() { pPos = 1; bPos = 1; slTurn = true; renderSL(); }
+    function renderSL() {
+        let board = document.getElementById('slBoard'); board.innerHTML = '';
+        document.getElementById('slStatus').innerText = `🔴 You: Tile ${pPos} | 🤖 AI: Tile ${bPos}`;
+        let gridCells = [];
+        for (let row = 9; row >= 0; row--) {
+            let rowCells = [];
+            for (let col = 0; col < 10; col++) { rowCells.push((row % 2 === 1) ? (row * 10 + (10 - col)) : (row * 10 + col + 1)); }
+            gridCells.push(...rowCells);
+        }
+        gridCells.forEach(i => {
+            let cell = document.createElement('div'); cell.className = 'sl-cell';
+            if (snakes[i]) { cell.classList.add('snake'); cell.innerText = `🐍\n${i}`; }
+            else if (ladders[i]) { cell.classList.add('ladder'); cell.innerText = `🪜\n${i}`; }
+            else cell.innerText = i;
+            if (pPos === i && bPos === i) { let t = document.createElement('span'); t.className = 'sl-token'; t.innerText = '🔴🤖'; cell.appendChild(t); }
+            else if (pPos === i) { let t = document.createElement('span'); t.className = 'sl-token'; t.innerText = '🔴'; cell.appendChild(t); }
+            else if (bPos === i) { let t = document.createElement('span'); t.className = 'sl-token'; t.innerText = '🤖'; cell.appendChild(t); }
+            board.appendChild(cell);
+        });
+    }
+    function rollSLDice() {
+        if (!slTurn) return;
+        let roll = Math.floor(Math.random() * 6) + 1; document.getElementById('diceDisplay').innerText = roll;
+        pPos += roll;
+        if (pPos >= 100) { pPos = 100; renderSL(); alert("🎉 Victory!"); initSL(); return; }
+        if (snakes[pPos]) pPos = snakes[pPos]; if (ladders[pPos]) pPos = ladders[pPos];
+        renderSL(); slTurn = false;
+        setTimeout(() => {
+            let bRoll = Math.floor(Math.random() * 6) + 1; bPos += bRoll;
+            if (bPos >= 100) { bPos = 100; renderSL(); alert("🤖 AI Won!"); initSL(); return; }
+            if (snakes[bPos]) bPos = snakes[bPos]; if (ladders[bPos]) bPos = ladders[bPos];
+            slTurn = true; renderSL();
+        }, 700);
+    }
+
+    // 2048 TOUCH
+    let grid2048 = Array(16).fill(0), tSX = 0, tSY = 0;
+    function init2048() { grid2048 = Array(16).fill(0); addTile2048(); addTile2048(); render2048(); }
+    function addTile2048() {
+        let empties = grid2048.map((v, i) => v === 0 ? i : null).filter(v => v !== null);
+        if (empties.length) grid2048[empties[Math.floor(Math.random() * empties.length)]] = Math.random() > 0.1 ? 2 : 4;
+    }
+    function render2048() {
+        let container = document.getElementById('g2048'); container.innerHTML = '';
+        grid2048.forEach(val => {
+            let cell = document.createElement('div'); cell.className = 'cell-2048'; cell.innerText = val ? val : '';
+            if (val) { cell.style.background = `hsl(${Math.min(360, Math.log2(val) * 35)}, 80%, 45%)`; }
+            container.appendChild(cell);
+        });
+    }
+    let gBox = document.getElementById('g2048');
+    gBox.addEventListener('touchstart', e => { tSX = e.touches[0].clientX; tSY = e.touches[0].clientY; }, false);
+    gBox.addEventListener('touchend', e => {
+        let dX = e.changedTouches[0].clientX - tSX, dY = e.changedTouches[0].clientY - tSY;
+        if (Math.abs(dX) > 30 || Math.abs(dY) > 30) {
+            if (Math.abs(dX) > Math.abs(dY)) slide2048(dX > 0 ? 'R' : 'L'); else slide2048(dY > 0 ? 'D' : 'U');
+        }
+    }, false);
+    function slide2048(dir) {
+        let moved = false;
+        for (let i = 0; i < 4; i++) {
+            let line = [];
+            for (let j = 0; j < 4; j++) { line.push(grid2048[(dir === 'L' || dir === 'R') ? (i * 4 + j) : (j * 4 + i)]); }
+            if (dir === 'R' || dir === 'D') line.reverse();
+            let filtered = line.filter(v => v !== 0);
+            for (let k = 0; k < filtered.length - 1; k++) {
+                if (filtered[k] === filtered[k + 1]) { filtered[k] *= 2; filtered[k + 1] = 0; moved = true; }
+            }
+            filtered = filtered.filter(v => v !== 0); while (filtered.length < 4) filtered.push(0);
+            if (dir === 'R' || dir === 'D') filtered.reverse();
+            for (let j = 0; j < 4; j++) {
+                let idx = (dir === 'L' || dir === 'R') ? (i * 4 + j) : (j * 4 + i);
+                if (grid2048[idx] !== filtered[j]) moved = true;
+                grid2048[idx] = filtered[j];
+            }
+        }
+        if (moved) { addTile2048(); render2048(); }
+    }
+
+    // IQ MEMORY
+    let iqSeq = [], iqUserSeq = [], iqLvl = 0, iqAccept = false;
+    function initIQ() { iqSeq = []; iqLvl = 0; nextIQRound(); }
+    function nextIQRound() {
+        iqUserSeq = []; iqLvl++; iqAccept = false; document.getElementById('iqStatus').innerText = "Round " + iqLvl + ": Memorize!";
+        iqSeq.push(Math.floor(Math.random() * 4)); let idx = 0;
+        let timer = setInterval(() => {
+            flashIQBox(iqSeq[idx]); idx++;
+            if (idx >= iqSeq.length) { clearInterval(timer); setTimeout(() => { iqAccept = true; document.getElementById('iqStatus').innerText = "Repeat Pattern!"; }, 400); }
+        }, 600);
+    }
+    function flashIQBox(id) { let el = document.getElementById('b' + id); el.classList.add('active'); setTimeout(() => el.classList.remove('active'), 300); }
+    function pressIQ(id) {
+        if (!iqAccept) return; flashIQBox(id); iqUserSeq.push(id); let curStep = iqUserSeq.length - 1;
+        if (iqUserSeq[curStep] !== iqSeq[curStep]) { alert("Pattern Missed! Score: " + iqLvl); initIQ(); return; }
+        if (iqUserSeq.length === iqSeq.length) { iqAccept = false; setTimeout(nextIQRound, 800); }
+    }
+
+    // 15-TILE SLIDE
+    let sGrid = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,0];
+    function initSlide() { sGrid.sort(() => Math.random() - 0.5); renderSlide(); }
+    function renderSlide() {
+        let box = document.getElementById('slideBoard'); box.innerHTML = '';
+        sGrid.forEach((val, idx) => {
+            let cell = document.createElement('div'); cell.className = 'cell-slide' + (val === 0 ? ' empty' : '');
+            cell.innerText = val ? val : ''; cell.onclick = () => moveSlideTile(idx); box.appendChild(cell);
+        });
+    }
+    function moveSlideTile(idx) {
+        let emptyIdx = sGrid.indexOf(0);
+        let row = Math.floor(idx / 4), col = idx % 4, eRow = Math.floor(emptyIdx / 4), eCol = emptyIdx % 4;
+        if (Math.abs(row - eRow) + Math.abs(col - eCol) === 1) { sGrid[emptyIdx] = sGrid[idx]; sGrid[idx] = 0; renderSlide(); }
     }
 </script>
 </body>
