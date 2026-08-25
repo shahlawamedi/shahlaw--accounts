@@ -69,13 +69,14 @@
 
         .action-btn {
             background: linear-gradient(135deg, #38bdf8, #3b82f6);
-            color: white; border: none; padding: 10px 16px; border-radius: 30px;
-            font-size: 0.85rem; font-weight: 600; cursor: pointer;
-            box-shadow: 0 4px 14px rgba(56, 189, 248, 0.3); display: inline-flex; align-items: center; gap: 6px;
+            color: white; border: none; padding: 10px 14px; border-radius: 30px;
+            font-size: 0.82rem; font-weight: 600; cursor: pointer;
+            box-shadow: 0 4px 14px rgba(56, 189, 248, 0.3); display: inline-flex; align-items: center; gap: 5px;
         }
 
         .puzzle-btn { background: linear-gradient(135deg, #a855f7, #6366f1); box-shadow: 0 4px 14px rgba(168, 85, 247, 0.3); }
         .snake-btn { background: linear-gradient(135deg, #10b981, #059669); box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3); }
+        .dice-btn { background: linear-gradient(135deg, #ec4899, #be185d); box-shadow: 0 4px 14px rgba(236, 72, 153, 0.3); }
         .iq-btn { background: linear-gradient(135deg, #f59e0b, #d97706); box-shadow: 0 4px 14px rgba(245, 158, 11, 0.3); }
 
         /* Modals */
@@ -90,20 +91,22 @@
             border: 1px solid var(--card-border); width: 100%; max-width: 340px; text-align: center;
         }
 
-        .level-select { display: flex; gap: 8px; justify-content: center; margin: 10px 0; }
-        .lvl-btn { background: #3a506b; border: none; color: white; padding: 6px 12px; border-radius: 12px; font-size: 0.8rem; cursor: pointer; }
-        .lvl-btn.active { background: var(--accent); color: #0b132b; font-weight: bold; }
-
-        .puzzle-grid { display: grid; gap: 6px; margin: 14px 0; }
-        .tile { aspect-ratio: 1; background: #3a506b; color: #5bc0be; font-size: 1.2rem; font-weight: bold; display: flex; justify-content: center; align-items: center; border-radius: 8px; cursor: pointer; }
-        .tile.empty { background: transparent; cursor: default; }
+        /* Pattern Puzzle Grid */
+        .pat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 16px 0; }
+        .pat-box { aspect-ratio: 1; border-radius: 12px; background: #3a506b; font-size: 1.5rem; display: flex; justify-content: center; align-items: center; cursor: pointer; border: 2px solid transparent; }
+        .pat-box.selected { border-color: var(--accent); background: #5bc0be; color: #0b132b; }
 
         /* Snake Canvas */
         #snakeCanvas { background: #0b132b; border-radius: 12px; margin: 10px auto; display: block; border: 1px solid var(--card-border); }
 
+        /* Dice Board to 100 */
+        .dice-board { display: grid; grid-template-columns: repeat(10, 1fr); gap: 2px; background: #0b132b; padding: 6px; border-radius: 12px; margin: 12px 0; max-height: 240px; overflow-y: auto; }
+        .dice-cell { aspect-ratio: 1; background: #1c2541; font-size: 0.55rem; color: var(--text-sub); display: flex; justify-content: center; align-items: center; border-radius: 3px; position: relative; }
+        .dice-cell.player { background: #ec4899; color: white; font-weight: bold; box-shadow: 0 0 6px #ec4899; }
+
         /* IQ Memory Grid */
         .iq-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 16px 0; }
-        .iq-box { aspect-ratio: 1; border-radius: 16px; opacity: 0.6; cursor: pointer; }
+        .iq-box { aspect-ratio: 1; border-radius: 16px; opacity: 0.5; cursor: pointer; }
         .iq-box.active { opacity: 1; transform: scale(0.95); }
         #b0 { background: #ef4444; } #b1 { background: #3b82f6; }
         #b2 { background: #10b981; } #b3 { background: #f59e0b; }
@@ -114,38 +117,35 @@
 <body>
 
 <div class="container">
-    <!-- Replace the photo URL inside src="" with your direct picture image link -->
-    <img src="photo.jpg" alt="Shahlaw Sherzad" class="profile-img" id="userPhoto" onerror="this.src='https://github.com/shahlawamedi.png'">
+    <img src="photo.jpg" alt="Shahlaw Sherzad" class="profile-img" onerror="this.src='https://github.com/shahlawamedi.png'">
     <h1>Shahlaw Sherzad</h1>
     <p class="bio">Digital Creator & Vlogger | Kurdistan 🏔️</p>
 
     <div class="links-wrapper">
         <a href="https://youtube.com/@shahlaw_amedi" target="_blank" class="social-card youtube"><i class="fa-brands fa-youtube"></i><div class="card-text"><span class="platform">YouTube</span><span class="handle">@shahlaw_amedi</span></div><i class="fa-solid fa-chevron-right" style="font-size:0.8rem; opacity:0.5;"></i></a>
         <a href="https://instagram.com/shahlaw.amedi" target="_blank" class="social-card instagram"><i class="fa-brands fa-instagram"></i><div class="card-text"><span class="platform">Instagram</span><span class="handle">@shahlaw.amedi</span></div><i class="fa-solid fa-chevron-right" style="font-size:0.8rem; opacity:0.5;"></i></a>
-        <a href="https://tiktok.com/@shahlawsherzad1" target="_blank" class="social-card tiktok"><i class="fa-brands fa-tiktok"></i><div class="card-text"><span class="platform">TikTok</span><span class="handle">@shahlawsherzad1</span></div><i class="fa-solid fa-chevron-right" style="font-size:0.8rem; opacity:0.5;"></i></a>
+        <a href="https://tiktok.com/@shahlawsherzad1" target="_blank" class="social-card tiktok"><i class="fa-brands fa-tiktok"></i><div class="card-text"><span class="platform">TikTok Main</span><span class="handle">@shahlawsherzad1</span></div><i class="fa-solid fa-chevron-right" style="font-size:0.8rem; opacity:0.5;"></i></a>
+        <a href="https://tiktok.com/@shr.shop3" target="_blank" class="social-card tiktok"><i class="fa-brands fa-tiktok"></i><div class="card-text"><span class="platform">TikTok Shop</span><span class="handle">@shr.shop3</span></div><i class="fa-solid fa-chevron-right" style="font-size:0.8rem; opacity:0.5;"></i></a>
         <a href="https://facebook.com/Shahlaw Amedi" target="_blank" class="social-card facebook"><i class="fa-brands fa-facebook"></i><div class="card-text"><span class="platform">Facebook</span><span class="handle">Shahlaw Amedi</span></div><i class="fa-solid fa-chevron-right" style="font-size:0.8rem; opacity:0.5;"></i></a>
         <a href="https://snapchat.com/add/shahlawsherzad" target="_blank" class="social-card snapchat"><i class="fa-brands fa-snapchat"></i><div class="card-text"><span class="platform">Snapchat</span><span class="handle">shahlawsherzad</span></div><i class="fa-solid fa-chevron-right" style="font-size:0.8rem; opacity:0.5;"></i></a>
     </div>
 
     <div class="btn-group">
         <button class="action-btn" onclick="shareProfile()"><i class="fa-solid fa-share-nodes"></i> Share</button>
-        <button class="action-btn puzzle-btn" onclick="openPuzzle()"><i class="fa-solid fa-puzzle-piece"></i> Slide Puzzle</button>
+        <button class="action-btn puzzle-btn" onclick="openPatPuzzle()"><i class="fa-solid fa-puzzle-piece"></i> Pattern Puzzle</button>
         <button class="action-btn snake-btn" onclick="openSnake()"><i class="fa-solid fa-gamepad"></i> Snake</button>
+        <button class="action-btn dice-btn" onclick="openDiceGame()"><i class="fa-solid fa-dice"></i> Dice to 100</button>
         <button class="action-btn iq-btn" onclick="openIQ()"><i class="fa-solid fa-brain"></i> IQ Test</button>
     </div>
 </div>
 
-<!-- Slide Puzzle Modal -->
-<div class="modal" id="puzzleModal">
+<!-- Pattern Puzzle Modal -->
+<div class="modal" id="patModal">
     <div class="modal-content">
-        <h3>Slide Puzzle Levels</h3>
-        <div class="level-select">
-            <button class="lvl-btn active" onclick="setPuzzleLevel(2, this)">Easy (2x2)</button>
-            <button class="lvl-btn" onclick="setPuzzleLevel(3, this)">Medium (3x3)</button>
-            <button class="lvl-btn" onclick="setPuzzleLevel(4, this)">Hard (4x4)</button>
-        </div>
-        <div class="puzzle-grid" id="grid"></div>
-        <button class="close-btn" onclick="closeModal('puzzleModal')">Close</button>
+        <h3>Color Match Puzzle</h3>
+        <p style="font-size: 0.8rem; color: var(--text-sub); margin-top: 4px;">Tap boxes to match all colors to Cyan!</p>
+        <div class="pat-grid" id="patGrid"></div>
+        <button class="close-btn" onclick="closeModal('patModal')">Close</button>
     </div>
 </div>
 
@@ -159,10 +159,21 @@
     </div>
 </div>
 
+<!-- Dice Game to 100 Modal -->
+<div class="modal" id="diceModal">
+    <div class="modal-content">
+        <h3>Race to Tile 100</h3>
+        <p id="diceStatus" style="font-size: 0.85rem; color: var(--text-sub);">Current Tile: 1</p>
+        <div class="dice-board" id="diceBoard"></div>
+        <button class="action-btn dice-btn" onclick="rollDice()" style="width: 100%; justify-content: center; margin-top: 6px;"><i class="fa-solid fa-dice"></i> Roll Dice</button>
+        <button class="close-btn" onclick="closeModal('diceModal')">Close</button>
+    </div>
+</div>
+
 <!-- IQ Memory Modal -->
 <div class="modal" id="iqModal">
     <div class="modal-content">
-        <h3>IQ Memory Pattern</h3>
+        <h3>IQ Memory Test</h3>
         <p id="iqStatus" style="font-size: 0.85rem; color: var(--text-sub); margin-bottom: 8px;">Memorize the flashing sequence!</p>
         <div class="iq-grid">
             <div class="iq-box" id="b0" onclick="userClickIQ(0)"></div>
@@ -181,40 +192,30 @@
     }
     function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 
-    /* --- SLIDE PUZZLE SYSTEM --- */
-    let pSize = 3, board = [];
-    function openPuzzle() { document.getElementById('puzzleModal').style.display = 'flex'; initPuzzle(); }
-    function setPuzzleLevel(size, btn) {
-        pSize = size;
-        document.querySelectorAll('.lvl-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        initPuzzle();
+    /* --- PATTERN MATCH PUZZLE SYSTEM --- */
+    let patState = [0, 1, 0, 1, 0, 1, 0, 1, 0];
+    function openPatPuzzle() {
+        document.getElementById('patModal').style.display = 'flex';
+        renderPatPuzzle();
     }
-    function initPuzzle() {
-        let total = pSize * pSize;
-        board = Array.from({length: total - 1}, (_, i) => i + 1).concat("");
-        board.sort(() => Math.random() - 0.5);
-        renderPuzzle();
-    }
-    function renderPuzzle() {
-        const grid = document.getElementById('grid');
-        grid.style.gridTemplateColumns = `repeat(${pSize}, 1fr)`;
+    function renderPatPuzzle() {
+        const grid = document.getElementById('patGrid');
         grid.innerHTML = '';
-        board.forEach((val, i) => {
-            const tile = document.createElement('div');
-            tile.className = `tile ${val === "" ? "empty" : ""}`;
-            tile.innerText = val;
-            tile.onclick = () => movePuzzle(i);
-            grid.appendChild(tile);
+        patState.forEach((val, i) => {
+            const box = document.createElement('div');
+            box.className = `pat-box ${val === 1 ? 'selected' : ''}`;
+            box.innerText = val === 1 ? '★' : '☆';
+            box.onclick = () => togglePat(i);
+            grid.appendChild(box);
         });
     }
-    function movePuzzle(i) {
-        let empty = board.indexOf("");
-        let row = Math.floor(i / pSize), col = i % pSize;
-        let eRow = Math.floor(empty / pSize), eCol = empty % pSize;
-        if (Math.abs(row - eRow) + Math.abs(col - eCol) === 1) {
-            [board[i], board[empty]] = [board[empty], board[i]];
-            renderPuzzle();
+    function togglePat(i) {
+        patState[i] = patState[i] === 1 ? 0 : 1;
+        if (i % 3 > 0) patState[i - 1] = patState[i - 1] === 1 ? 0 : 1;
+        if (i % 3 < 2) patState[i + 1] = patState[i + 1] === 1 ? 0 : 1;
+        renderPatPuzzle();
+        if (patState.every(v => v === 1)) {
+            setTimeout(() => alert("🎉 Pattern Solved! Perfect Logic!"), 100);
         }
     }
 
@@ -242,7 +243,6 @@
         ctx.fillStyle = "#ef4444"; ctx.fillRect(food.x, food.y, 9, 9);
         ctx.fillStyle = "#10b981"; snake.forEach(s => ctx.fillRect(s.x, s.y, 9, 9));
     }
-    // Touch Swipe Control
     let touchStartX = 0, touchStartY = 0;
     canvas.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; touchStartY = e.touches[0].clientY; });
     canvas.addEventListener('touchend', e => {
@@ -255,28 +255,63 @@
         }
     });
 
-    /* --- IQ MEMORY TEST SYSTEM --- */
+    /* --- DICE TO 100 GAME SYSTEM --- */
+    let playerPos = 1;
+    function openDiceGame() {
+        document.getElementById('diceModal').style.display = 'flex';
+        playerPos = 1;
+        renderDiceBoard();
+    }
+    function renderDiceBoard() {
+        const board = document.getElementById('diceBoard');
+        board.innerHTML = '';
+        document.getElementById('diceStatus').innerText = `Current Tile: ${playerPos} / 100`;
+        for (let i = 1; i <= 100; i++) {
+            const cell = document.createElement('div');
+            cell.className = `dice-cell ${i === playerPos ? 'player' : ''}`;
+            cell.innerText = i;
+            board.appendChild(cell);
+        }
+    }
+    function rollDice() {
+        let roll = Math.floor(Math.random() * 6) + 1;
+        playerPos += roll;
+        if (playerPos >= 100) {
+            playerPos = 100;
+            renderDiceBoard();
+            setTimeout(() => alert("🎲 Winner! You reached Tile 100!"), 100);
+        } else {
+            renderDiceBoard();
+        }
+    }
+
+    /* --- IQ MEMORY TEST SYSTEM WITH IQ SCORES --- */
     let iqSeq = [], userSeq = [], iqLevel = 0;
     function openIQ() { document.getElementById('iqModal').style.display = 'flex'; iqSeq = []; iqLevel = 0; nextIQRound(); }
     function nextIQRound() {
         userSeq = []; iqLevel++;
-        document.getElementById('iqStatus').innerText = `Level ${iqLevel}: Watch pattern!`;
+        document.getElementById('iqStatus').innerText = `Round ${iqLevel}: Memorize Sequence`;
         iqSeq.push(Math.floor(Math.random() * 4));
         let i = 0;
         let timer = setInterval(() => {
             flashBox(iqSeq[i]); i++;
             if (i >= iqSeq.length) { clearInterval(timer); document.getElementById('iqStatus').innerText = "Your Turn!"; }
-        }, 600);
+        }, 550);
     }
     function flashBox(num) {
         let b = document.getElementById('b' + num);
-        b.classList.add('active'); setTimeout(() => b.classList.remove('active'), 300);
+        b.classList.add('active'); setTimeout(() => b.classList.remove('active'), 280);
     }
     function userClickIQ(num) {
         flashBox(num); userSeq.push(num);
         let idx = userSeq.length - 1;
-        if (userSeq[idx] !== iqSeq[idx]) { alert(`Game Over! IQ Score Level: ${iqLevel}`); openIQ(); return; }
-        if (userSeq.length === iqSeq.length) setTimeout(nextIQRound, 800);
+        if (userSeq[idx] !== iqSeq[idx]) {
+            let calculatedIQ = 85 + (iqLevel * 8);
+            alert(`🧠 Test Finished!\nYour Score: Level ${iqLevel}\nEstimated IQ Rating: ${calculatedIQ}`);
+            openIQ();
+            return;
+        }
+        if (userSeq.length === iqSeq.length) setTimeout(nextIQRound, 700);
     }
 </script>
 </body>
