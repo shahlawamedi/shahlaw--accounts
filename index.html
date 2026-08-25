@@ -18,12 +18,7 @@
             --text-sub: #94a3b8;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
 
         body {
             background: radial-gradient(circle at 50% 0%, #1c2541 0%, #0b132b 100%);
@@ -35,11 +30,7 @@
             padding: 24px 16px;
         }
 
-        .container {
-            width: 100%;
-            max-width: 400px;
-            text-align: center;
-        }
+        .container { width: 100%; max-width: 400px; text-align: center; }
 
         .profile-img {
             width: 120px;
@@ -51,62 +42,22 @@
             margin-bottom: 12px;
         }
 
-        h1 {
-            font-size: 1.6rem;
-            font-weight: 700;
-            margin-bottom: 4px;
-        }
+        h1 { font-size: 1.6rem; font-weight: 700; margin-bottom: 4px; }
+        p.bio { color: var(--text-sub); font-size: 0.95rem; margin-bottom: 20px; }
 
-        p.bio {
-            color: var(--text-sub);
-            font-size: 0.95rem;
-            margin-bottom: 20px;
-        }
-
-        .links-wrapper {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
+        .links-wrapper { display: flex; flex-direction: column; gap: 12px; }
 
         .social-card {
-            display: flex;
-            align-items: center;
-            padding: 14px 18px;
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 16px;
-            color: var(--text-main);
-            text-decoration: none;
-            backdrop-filter: blur(10px);
-            transition: transform 0.2s;
+            display: flex; align-items: center; padding: 14px 18px;
+            background: var(--card-bg); border: 1px solid var(--card-border);
+            border-radius: 16px; color: var(--text-main); text-decoration: none;
+            backdrop-filter: blur(10px); transition: transform 0.2s;
         }
-
-        .social-card:active {
-            transform: scale(0.98);
-        }
-
-        .social-card i {
-            font-size: 1.5rem;
-            width: 35px;
-        }
-
-        .card-text {
-            flex-grow: 1;
-            text-align: left;
-            padding-left: 10px;
-        }
-
-        .card-text .platform {
-            font-weight: 600;
-            font-size: 1rem;
-            display: block;
-        }
-
-        .card-text .handle {
-            color: var(--text-sub);
-            font-size: 0.8rem;
-        }
+        .social-card:active { transform: scale(0.98); }
+        .social-card i { font-size: 1.5rem; width: 35px; }
+        .card-text { flex-grow: 1; text-align: left; padding-left: 10px; }
+        .card-text .platform { font-weight: 600; font-size: 1rem; display: block; }
+        .card-text .handle { color: var(--text-sub); font-size: 0.8rem; }
 
         .youtube i { color: #ff0000; }
         .instagram i { color: #e1306c; }
@@ -114,227 +65,219 @@
         .facebook i { color: #1877f2; }
         .snapchat i { color: #fffc00; }
 
-        .btn-group {
-            margin-top: 20px;
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-        }
+        .btn-group { margin-top: 20px; display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
 
         .action-btn {
             background: linear-gradient(135deg, #38bdf8, #3b82f6);
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 30px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            cursor: pointer;
-            box-shadow: 0 4px 14px rgba(56, 189, 248, 0.3);
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
+            color: white; border: none; padding: 10px 16px; border-radius: 30px;
+            font-size: 0.85rem; font-weight: 600; cursor: pointer;
+            box-shadow: 0 4px 14px rgba(56, 189, 248, 0.3); display: inline-flex; align-items: center; gap: 6px;
         }
 
-        .puzzle-btn {
-            background: linear-gradient(135deg, #a855f7, #6366f1);
-            box-shadow: 0 4px 14px rgba(168, 85, 247, 0.3);
-        }
+        .puzzle-btn { background: linear-gradient(135deg, #a855f7, #6366f1); box-shadow: 0 4px 14px rgba(168, 85, 247, 0.3); }
+        .snake-btn { background: linear-gradient(135deg, #10b981, #059669); box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3); }
+        .iq-btn { background: linear-gradient(135deg, #f59e0b, #d97706); box-shadow: 0 4px 14px rgba(245, 158, 11, 0.3); }
 
-        /* Puzzle Modal */
+        /* Modals */
         .modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(11, 19, 43, 0.92);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(11, 19, 43, 0.95); backdrop-filter: blur(10px);
+            z-index: 1000; justify-content: center; align-items: center; padding: 20px;
         }
 
         .modal-content {
-            background: #1c2541;
-            padding: 24px;
-            border-radius: 24px;
-            border: 1px solid var(--card-border);
-            width: 100%;
-            max-width: 330px;
-            text-align: center;
+            background: #1c2541; padding: 20px; border-radius: 24px;
+            border: 1px solid var(--card-border); width: 100%; max-width: 340px; text-align: center;
         }
 
-        .puzzle-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin: 20px 0;
-        }
+        .level-select { display: flex; gap: 8px; justify-content: center; margin: 10px 0; }
+        .lvl-btn { background: #3a506b; border: none; color: white; padding: 6px 12px; border-radius: 12px; font-size: 0.8rem; cursor: pointer; }
+        .lvl-btn.active { background: var(--accent); color: #0b132b; font-weight: bold; }
 
-        .tile {
-            aspect-ratio: 1;
-            background: #3a506b;
-            color: #5bc0be;
-            font-size: 1.5rem;
-            font-weight: bold;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 12px;
-            cursor: pointer;
-        }
+        .puzzle-grid { display: grid; gap: 6px; margin: 14px 0; }
+        .tile { aspect-ratio: 1; background: #3a506b; color: #5bc0be; font-size: 1.2rem; font-weight: bold; display: flex; justify-content: center; align-items: center; border-radius: 8px; cursor: pointer; }
+        .tile.empty { background: transparent; cursor: default; }
 
-        .tile.empty {
-            background: transparent;
-            cursor: default;
-        }
+        /* Snake Canvas */
+        #snakeCanvas { background: #0b132b; border-radius: 12px; margin: 10px auto; display: block; border: 1px solid var(--card-border); }
 
-        .close-btn {
-            background: transparent;
-            color: var(--text-sub);
-            border: 1px solid var(--card-border);
-            padding: 8px 20px;
-            border-radius: 20px;
-            cursor: pointer;
-        }
+        /* IQ Memory Grid */
+        .iq-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 16px 0; }
+        .iq-box { aspect-ratio: 1; border-radius: 16px; opacity: 0.6; cursor: pointer; }
+        .iq-box.active { opacity: 1; transform: scale(0.95); }
+        #b0 { background: #ef4444; } #b1 { background: #3b82f6; }
+        #b2 { background: #10b981; } #b3 { background: #f59e0b; }
+
+        .close-btn { background: transparent; color: var(--text-sub); border: 1px solid var(--card-border); padding: 8px 18px; border-radius: 20px; cursor: pointer; margin-top: 10px; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <img src="https://raw.githubusercontent.com/shahlawamedi/shahlawamedi/main/photo.jpg" alt="Shahlaw Sherzad" class="profile-img" onerror="this.src='https://github.com/shahlawamedi.png'">
+    <!-- Replace the photo URL inside src="" with your direct picture image link -->
+    <img src="photo.jpg" alt="Shahlaw Sherzad" class="profile-img" id="userPhoto" onerror="this.src='https://github.com/shahlawamedi.png'">
     <h1>Shahlaw Sherzad</h1>
     <p class="bio">Digital Creator & Vlogger | Kurdistan 🏔️</p>
 
     <div class="links-wrapper">
-        <a href="https://youtube.com/@shahlaw_amedi" target="_blank" class="social-card youtube">
-            <i class="fa-brands fa-youtube"></i>
-            <div class="card-text">
-                <span class="platform">YouTube</span>
-                <span class="handle">@shahlaw_amedi</span>
-            </div>
-            <i class="fa-solid fa-chevron-right" style="font-size:0.8rem; opacity:0.5;"></i>
-        </a>
-
-        <a href="https://instagram.com/shahlaw.amedi" target="_blank" class="social-card instagram">
-            <i class="fa-brands fa-instagram"></i>
-            <div class="card-text">
-                <span class="platform">Instagram</span>
-                <span class="handle">@shahlaw.amedi</span>
-            </div>
-            <i class="fa-solid fa-chevron-right" style="font-size:0.8rem; opacity:0.5;"></i>
-        </a>
-
-        <a href="https://tiktok.com/@shahlawsherzad1" target="_blank" class="social-card tiktok">
-            <i class="fa-brands fa-tiktok"></i>
-            <div class="card-text">
-                <span class="platform">TikTok</span>
-                <span class="handle">@shahlawsherzad1</span>
-            </div>
-            <i class="fa-solid fa-chevron-right" style="font-size:0.8rem; opacity:0.5;"></i>
-        </a>
-
-        <a href="https://facebook.com/Shahlaw Amedi" target="_blank" class="social-card facebook">
-            <i class="fa-brands fa-facebook"></i>
-            <div class="card-text">
-                <span class="platform">Facebook</span>
-                <span class="handle">Shahlaw Amedi</span>
-            </div>
-            <i class="fa-solid fa-chevron-right" style="font-size:0.8rem; opacity:0.5;"></i>
-        </a>
-
-        <a href="https://snapchat.com/add/shahlawsherzad" target="_blank" class="social-card snapchat">
-            <i class="fa-brands fa-snapchat"></i>
-            <div class="card-text">
-                <span class="platform">Snapchat</span>
-                <span class="handle">shahlawsherzad</span>
-            </div>
-            <i class="fa-solid fa-chevron-right" style="font-size:0.8rem; opacity:0.5;"></i>
-        </a>
+        <a href="https://youtube.com/@shahlaw_amedi" target="_blank" class="social-card youtube"><i class="fa-brands fa-youtube"></i><div class="card-text"><span class="platform">YouTube</span><span class="handle">@shahlaw_amedi</span></div><i class="fa-solid fa-chevron-right" style="font-size:0.8rem; opacity:0.5;"></i></a>
+        <a href="https://instagram.com/shahlaw.amedi" target="_blank" class="social-card instagram"><i class="fa-brands fa-instagram"></i><div class="card-text"><span class="platform">Instagram</span><span class="handle">@shahlaw.amedi</span></div><i class="fa-solid fa-chevron-right" style="font-size:0.8rem; opacity:0.5;"></i></a>
+        <a href="https://tiktok.com/@shahlawsherzad1" target="_blank" class="social-card tiktok"><i class="fa-brands fa-tiktok"></i><div class="card-text"><span class="platform">TikTok</span><span class="handle">@shahlawsherzad1</span></div><i class="fa-solid fa-chevron-right" style="font-size:0.8rem; opacity:0.5;"></i></a>
+        <a href="https://facebook.com/Shahlaw Amedi" target="_blank" class="social-card facebook"><i class="fa-brands fa-facebook"></i><div class="card-text"><span class="platform">Facebook</span><span class="handle">Shahlaw Amedi</span></div><i class="fa-solid fa-chevron-right" style="font-size:0.8rem; opacity:0.5;"></i></a>
+        <a href="https://snapchat.com/add/shahlawsherzad" target="_blank" class="social-card snapchat"><i class="fa-brands fa-snapchat"></i><div class="card-text"><span class="platform">Snapchat</span><span class="handle">shahlawsherzad</span></div><i class="fa-solid fa-chevron-right" style="font-size:0.8rem; opacity:0.5;"></i></a>
     </div>
 
     <div class="btn-group">
-        <button class="action-btn" onclick="shareProfile()">
-            <i class="fa-solid fa-share-nodes"></i> Share
-        </button>
-        <button class="action-btn puzzle-btn" onclick="openPuzzle()">
-            <i class="fa-solid fa-puzzle-piece"></i> Play Game
-        </button>
+        <button class="action-btn" onclick="shareProfile()"><i class="fa-solid fa-share-nodes"></i> Share</button>
+        <button class="action-btn puzzle-btn" onclick="openPuzzle()"><i class="fa-solid fa-puzzle-piece"></i> Slide Puzzle</button>
+        <button class="action-btn snake-btn" onclick="openSnake()"><i class="fa-solid fa-gamepad"></i> Snake</button>
+        <button class="action-btn iq-btn" onclick="openIQ()"><i class="fa-solid fa-brain"></i> IQ Test</button>
     </div>
 </div>
 
+<!-- Slide Puzzle Modal -->
 <div class="modal" id="puzzleModal">
     <div class="modal-content">
-        <h3>Slide Puzzle</h3>
-        <p style="font-size: 0.85rem; color: var(--text-sub); margin-top: 4px;">Arrange 1 to 8 in order!</p>
+        <h3>Slide Puzzle Levels</h3>
+        <div class="level-select">
+            <button class="lvl-btn active" onclick="setPuzzleLevel(2, this)">Easy (2x2)</button>
+            <button class="lvl-btn" onclick="setPuzzleLevel(3, this)">Medium (3x3)</button>
+            <button class="lvl-btn" onclick="setPuzzleLevel(4, this)">Hard (4x4)</button>
+        </div>
         <div class="puzzle-grid" id="grid"></div>
-        <button class="close-btn" onclick="closePuzzle()">Close</button>
+        <button class="close-btn" onclick="closeModal('puzzleModal')">Close</button>
+    </div>
+</div>
+
+<!-- Snake Modal -->
+<div class="modal" id="snakeModal">
+    <div class="modal-content">
+        <h3>Snake Arcade</h3>
+        <p style="font-size: 0.8rem; color: var(--text-sub);">Swipe screen to control direction</p>
+        <canvas id="snakeCanvas" width="260" height="260"></canvas>
+        <button class="close-btn" onclick="closeSnake()">Close</button>
+    </div>
+</div>
+
+<!-- IQ Memory Modal -->
+<div class="modal" id="iqModal">
+    <div class="modal-content">
+        <h3>IQ Memory Pattern</h3>
+        <p id="iqStatus" style="font-size: 0.85rem; color: var(--text-sub); margin-bottom: 8px;">Memorize the flashing sequence!</p>
+        <div class="iq-grid">
+            <div class="iq-box" id="b0" onclick="userClickIQ(0)"></div>
+            <div class="iq-box" id="b1" onclick="userClickIQ(1)"></div>
+            <div class="iq-box" id="b2" onclick="userClickIQ(2)"></div>
+            <div class="iq-box" id="b3" onclick="userClickIQ(3)"></div>
+        </div>
+        <button class="close-btn" onclick="closeModal('iqModal')">Close</button>
     </div>
 </div>
 
 <script>
     function shareProfile() {
-        if (navigator.share) {
-            navigator.share({
-                title: 'Shahlaw Sherzad',
-                text: 'Check out my official links!',
-                url: window.location.href
-            });
-        } else {
-            navigator.clipboard.writeText(window.location.href);
-            alert('Link copied to clipboard!');
-        }
+        if (navigator.share) { navigator.share({ title: 'Shahlaw Sherzad', url: window.location.href }); }
+        else { navigator.clipboard.writeText(window.location.href); alert('Link copied!'); }
     }
+    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 
-    let board = [1, 2, 3, 4, 5, 6, 7, 8, ""];
-    
-    function openPuzzle() {
-        shuffleBoard();
-        renderGrid();
-        document.getElementById('puzzleModal').style.display = 'flex';
+    /* --- SLIDE PUZZLE SYSTEM --- */
+    let pSize = 3, board = [];
+    function openPuzzle() { document.getElementById('puzzleModal').style.display = 'flex'; initPuzzle(); }
+    function setPuzzleLevel(size, btn) {
+        pSize = size;
+        document.querySelectorAll('.lvl-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        initPuzzle();
     }
-
-    function closePuzzle() {
-        document.getElementById('puzzleModal').style.display = 'none';
+    function initPuzzle() {
+        let total = pSize * pSize;
+        board = Array.from({length: total - 1}, (_, i) => i + 1).concat("");
+        board.sort(() => Math.random() - 0.5);
+        renderPuzzle();
     }
-
-    function shuffleBoard() {
-        for (let i = board.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [board[i], board[j]] = [board[j], board[i]];
-        }
-    }
-
-    function renderGrid() {
+    function renderPuzzle() {
         const grid = document.getElementById('grid');
+        grid.style.gridTemplateColumns = `repeat(${pSize}, 1fr)`;
         grid.innerHTML = '';
-        board.forEach((val, index) => {
+        board.forEach((val, i) => {
             const tile = document.createElement('div');
             tile.className = `tile ${val === "" ? "empty" : ""}`;
             tile.innerText = val;
-            tile.onclick = () => moveTile(index);
+            tile.onclick = () => movePuzzle(i);
             grid.appendChild(tile);
         });
     }
-
-    function moveTile(index) {
-        const emptyIndex = board.indexOf("");
-        const validMoves = [index - 1, index + 1, index - 3, index + 3];
-
-        if (validMoves.includes(emptyIndex)) {
-            if ((index % 3 === 0 && emptyIndex === index - 1) || (index % 3 === 2 && emptyIndex === index + 1)) return;
-            [board[index], board[emptyIndex]] = [board[emptyIndex], board[index]];
-            renderGrid();
-            checkWin();
+    function movePuzzle(i) {
+        let empty = board.indexOf("");
+        let row = Math.floor(i / pSize), col = i % pSize;
+        let eRow = Math.floor(empty / pSize), eCol = empty % pSize;
+        if (Math.abs(row - eRow) + Math.abs(col - eCol) === 1) {
+            [board[i], board[empty]] = [board[empty], board[i]];
+            renderPuzzle();
         }
     }
 
-    function checkWin() {
-        if (board.join("") === "12345678") {
-            setTimeout(() => alert("🎉 You solved the puzzle!"), 100);
+    /* --- SNAKE GAME SYSTEM --- */
+    let canvas = document.getElementById("snakeCanvas"), ctx = canvas.getContext("2d");
+    let snake, food, dx, dy, snakeLoop;
+    function openSnake() {
+        document.getElementById('snakeModal').style.display = 'flex';
+        snake = [{x: 100, y: 100}, {x: 90, y: 100}];
+        dx = 10; dy = 0;
+        spawnFood();
+        clearInterval(snakeLoop);
+        snakeLoop = setInterval(updateSnake, 100);
+    }
+    function closeSnake() { clearInterval(snakeLoop); closeModal('snakeModal'); }
+    function spawnFood() { food = {x: Math.floor(Math.random()*25)*10, y: Math.floor(Math.random()*25)*10}; }
+    function updateSnake() {
+        let head = {x: snake[0].x + dx, y: snake[0].y + dy};
+        if (head.x < 0 || head.x >= 260 || head.y < 0 || head.y >= 260 || snake.some(s => s.x===head.x && s.y===head.y)) {
+            alert("Game Over!"); openSnake(); return;
         }
+        snake.unshift(head);
+        if (head.x === food.x && head.y === food.y) spawnFood(); else snake.pop();
+        ctx.fillStyle = "#0b132b"; ctx.fillRect(0,0,260,260);
+        ctx.fillStyle = "#ef4444"; ctx.fillRect(food.x, food.y, 9, 9);
+        ctx.fillStyle = "#10b981"; snake.forEach(s => ctx.fillRect(s.x, s.y, 9, 9));
+    }
+    // Touch Swipe Control
+    let touchStartX = 0, touchStartY = 0;
+    canvas.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; touchStartY = e.touches[0].clientY; });
+    canvas.addEventListener('touchend', e => {
+        let diffX = e.changedTouches[0].clientX - touchStartX;
+        let diffY = e.changedTouches[0].clientY - touchStartY;
+        if (Math.abs(diffX) > Math.abs(diffY)) {
+            if (diffX > 0 && dx === 0) { dx = 10; dy = 0; } else if (diffX < 0 && dx === 0) { dx = -10; dy = 0; }
+        } else {
+            if (diffY > 0 && dy === 0) { dx = 0; dy = 10; } else if (diffY < 0 && dy === 0) { dx = 0; dy = -10; }
+        }
+    });
+
+    /* --- IQ MEMORY TEST SYSTEM --- */
+    let iqSeq = [], userSeq = [], iqLevel = 0;
+    function openIQ() { document.getElementById('iqModal').style.display = 'flex'; iqSeq = []; iqLevel = 0; nextIQRound(); }
+    function nextIQRound() {
+        userSeq = []; iqLevel++;
+        document.getElementById('iqStatus').innerText = `Level ${iqLevel}: Watch pattern!`;
+        iqSeq.push(Math.floor(Math.random() * 4));
+        let i = 0;
+        let timer = setInterval(() => {
+            flashBox(iqSeq[i]); i++;
+            if (i >= iqSeq.length) { clearInterval(timer); document.getElementById('iqStatus').innerText = "Your Turn!"; }
+        }, 600);
+    }
+    function flashBox(num) {
+        let b = document.getElementById('b' + num);
+        b.classList.add('active'); setTimeout(() => b.classList.remove('active'), 300);
+    }
+    function userClickIQ(num) {
+        flashBox(num); userSeq.push(num);
+        let idx = userSeq.length - 1;
+        if (userSeq[idx] !== iqSeq[idx]) { alert(`Game Over! IQ Score Level: ${iqLevel}`); openIQ(); return; }
+        if (userSeq.length === iqSeq.length) setTimeout(nextIQRound, 800);
     }
 </script>
-
 </body>
 </html>
