@@ -3,21 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shahlaw Amedi | Official Links</title>
-    <meta name="description" content="Official links for Shahlaw Sherzad Amedi - YouTube, Instagram, TikTok, Facebook, Snapchat.">
-    <!-- Apple Web App Meta Tags -->
+    <title>Shahlaw Sherzad | Official Hub</title>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Shahlaw Hub">
-    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --bg-color: #0f172a;
-            --card-bg: rgba(30, 41, 59, 0.7);
+            --bg-color: #0b132b;
+            --card-bg: rgba(28, 37, 65, 0.7);
             --card-border: rgba(255, 255, 255, 0.1);
-            --accent-glow: #38bdf8;
-            --text-main: #f8fafc;
+            --accent: #38bdf8;
+            --text-main: #ffffff;
             --text-sub: #94a3b8;
         }
 
@@ -29,34 +26,33 @@
         }
 
         body {
-            background-color: var(--bg-color);
+            background: radial-gradient(circle at 50% 0%, #1c2541 0%, #0b132b 100%);
             color: var(--text-main);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px 16px;
-            background-image: radial-gradient(circle at 50% 0%, #1e293b 0%, #0f172a 100%);
+            padding: 24px 16px;
         }
 
         .container {
             width: 100%;
-            max-width: 420px;
+            max-width: 400px;
             text-align: center;
         }
 
         .profile-img {
-            width: 105px;
-            height: 105px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid var(--accent-glow);
-            box-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
+            border: 3px solid var(--accent);
+            box-shadow: 0 0 25px rgba(56, 189, 248, 0.5);
             margin-bottom: 12px;
         }
 
         h1 {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             font-weight: 700;
             margin-bottom: 4px;
         }
@@ -64,14 +60,13 @@
         p.bio {
             color: var(--text-sub);
             font-size: 0.95rem;
-            margin-bottom: 24px;
-            line-height: 1.4;
+            margin-bottom: 20px;
         }
 
         .links-wrapper {
             display: flex;
             flex-direction: column;
-            gap: 14px;
+            gap: 12px;
         }
 
         .social-card {
@@ -84,7 +79,7 @@
             color: var(--text-main);
             text-decoration: none;
             backdrop-filter: blur(10px);
-            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+            transition: transform 0.2s;
         }
 
         .social-card:active {
@@ -119,27 +114,95 @@
         .facebook i { color: #1877f2; }
         .snapchat i { color: #fffc00; }
 
-        .share-btn {
-            margin-top: 28px;
+        .btn-group {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .action-btn {
             background: linear-gradient(135deg, #38bdf8, #3b82f6);
             color: white;
             border: none;
-            padding: 12px 24px;
+            padding: 12px 20px;
             border-radius: 30px;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             font-weight: 600;
             cursor: pointer;
-            box-shadow: 0 4px 14px rgba(56, 189, 248, 0.4);
+            box-shadow: 0 4px 14px rgba(56, 189, 248, 0.3);
             display: inline-flex;
             align-items: center;
             gap: 8px;
+        }
+
+        .puzzle-btn {
+            background: linear-gradient(135deg, #a855f7, #6366f1);
+            box-shadow: 0 4px 14px rgba(168, 85, 247, 0.3);
+        }
+
+        /* Puzzle Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(11, 19, 43, 0.92);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: #1c2541;
+            padding: 24px;
+            border-radius: 24px;
+            border: 1px solid var(--card-border);
+            width: 100%;
+            max-width: 330px;
+            text-align: center;
+        }
+
+        .puzzle-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .tile {
+            aspect-ratio: 1;
+            background: #3a506b;
+            color: #5bc0be;
+            font-size: 1.5rem;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 12px;
+            cursor: pointer;
+        }
+
+        .tile.empty {
+            background: transparent;
+            cursor: default;
+        }
+
+        .close-btn {
+            background: transparent;
+            color: var(--text-sub);
+            border: 1px solid var(--card-border);
+            padding: 8px 20px;
+            border-radius: 20px;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <img src="https://via.placeholder.com/150" alt="Profile" class="profile-img">
+    <img src="https://raw.githubusercontent.com/shahlawamedi/shahlawamedi/main/photo.jpg" alt="Shahlaw Sherzad" class="profile-img" onerror="this.src='https://github.com/shahlawamedi.png'">
     <h1>Shahlaw Sherzad</h1>
     <p class="bio">Digital Creator & Vlogger | Kurdistan 🏔️</p>
 
@@ -190,22 +253,85 @@
         </a>
     </div>
 
-    <button class="share-btn" onclick="shareProfile()">
-        <i class="fa-solid fa-share-nodes"></i> Share Profile
-    </button>
+    <div class="btn-group">
+        <button class="action-btn" onclick="shareProfile()">
+            <i class="fa-solid fa-share-nodes"></i> Share
+        </button>
+        <button class="action-btn puzzle-btn" onclick="openPuzzle()">
+            <i class="fa-solid fa-puzzle-piece"></i> Play Game
+        </button>
+    </div>
+</div>
+
+<div class="modal" id="puzzleModal">
+    <div class="modal-content">
+        <h3>Slide Puzzle</h3>
+        <p style="font-size: 0.85rem; color: var(--text-sub); margin-top: 4px;">Arrange 1 to 8 in order!</p>
+        <div class="puzzle-grid" id="grid"></div>
+        <button class="close-btn" onclick="closePuzzle()">Close</button>
+    </div>
 </div>
 
 <script>
     function shareProfile() {
         if (navigator.share) {
             navigator.share({
-                title: 'Shahlaw Sherzad Links',
-                text: 'Check out my official social channels!',
+                title: 'Shahlaw Sherzad',
+                text: 'Check out my official links!',
                 url: window.location.href
             });
         } else {
             navigator.clipboard.writeText(window.location.href);
             alert('Link copied to clipboard!');
+        }
+    }
+
+    let board = [1, 2, 3, 4, 5, 6, 7, 8, ""];
+    
+    function openPuzzle() {
+        shuffleBoard();
+        renderGrid();
+        document.getElementById('puzzleModal').style.display = 'flex';
+    }
+
+    function closePuzzle() {
+        document.getElementById('puzzleModal').style.display = 'none';
+    }
+
+    function shuffleBoard() {
+        for (let i = board.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [board[i], board[j]] = [board[j], board[i]];
+        }
+    }
+
+    function renderGrid() {
+        const grid = document.getElementById('grid');
+        grid.innerHTML = '';
+        board.forEach((val, index) => {
+            const tile = document.createElement('div');
+            tile.className = `tile ${val === "" ? "empty" : ""}`;
+            tile.innerText = val;
+            tile.onclick = () => moveTile(index);
+            grid.appendChild(tile);
+        });
+    }
+
+    function moveTile(index) {
+        const emptyIndex = board.indexOf("");
+        const validMoves = [index - 1, index + 1, index - 3, index + 3];
+
+        if (validMoves.includes(emptyIndex)) {
+            if ((index % 3 === 0 && emptyIndex === index - 1) || (index % 3 === 2 && emptyIndex === index + 1)) return;
+            [board[index], board[emptyIndex]] = [board[emptyIndex], board[index]];
+            renderGrid();
+            checkWin();
+        }
+    }
+
+    function checkWin() {
+        if (board.join("") === "12345678") {
+            setTimeout(() => alert("🎉 You solved the puzzle!"), 100);
         }
     }
 </script>
