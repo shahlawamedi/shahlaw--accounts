@@ -91,19 +91,15 @@
             border: 1px solid var(--card-border); width: 100%; max-width: 340px; text-align: center;
         }
 
-        /* Tower Canvas */
-        #towerCanvas { background: #0b132b; border-radius: 12px; margin: 10px auto; display: block; border: 1px solid var(--card-border); }
-
-        /* Snake Arcade Canvas */
-        #snakeCanvas { background: #0b132b; border-radius: 12px; margin: 10px auto; display: block; border: 1px solid var(--card-border); }
+        /* Canvas Styles */
+        #towerCanvas, #snakeCanvas { background: #0b132b; border-radius: 12px; margin: 10px auto; display: block; border: 1px solid var(--card-border); }
 
         /* Snakes & Ladders Board */
         .snakes-board { display: grid; grid-template-columns: repeat(10, 1fr); gap: 2px; background: #0b132b; padding: 6px; border-radius: 12px; margin: 10px 0; max-height: 250px; overflow-y: auto; }
         .snakes-cell { aspect-ratio: 1; background: #1c2541; font-size: 0.5rem; color: var(--text-sub); display: flex; flex-direction: column; justify-content: center; align-items: center; border-radius: 3px; position: relative; }
-        .snakes-cell.snake-head { background: rgba(239, 68, 68, 0.2); border: 1px solid #ef4444; }
-        .snakes-cell.ladder-bottom { background: rgba(16, 185, 129, 0.2); border: 1px solid #10b981; }
+        .snakes-cell.snake-head { background: rgba(239, 68, 68, 0.25); border: 1px solid #ef4444; }
+        .snakes-cell.ladder-bottom { background: rgba(16, 185, 129, 0.25); border: 1px solid #10b981; }
 
-        /* Player markers */
         .p-marker { font-size: 0.75rem; line-height: 1; }
 
         /* IQ Memory Grid */
@@ -145,7 +141,7 @@
 <div class="modal" id="towerModal">
     <div class="modal-content">
         <h3>Tower Builder</h3>
-        <p style="font-size: 0.8rem; color: var(--text-sub);">Tap screen to place blocks!</p>
+        <p style="font-size: 0.8rem; color: var(--text-sub);">Tap screen to place moving blocks!</p>
         <canvas id="towerCanvas" width="260" height="280"></canvas>
         <button class="close-btn" onclick="closeTower()">Close</button>
     </div>
@@ -196,7 +192,7 @@
 
     /* --- TOWER BUILDER STACKER GAME --- */
     let tCanvas = document.getElementById("towerCanvas"), tCtx = tCanvas.getContext("2d");
-    let towerBlocks = [], currentBlock, tDirection = 2, tLoop, towerScore = 0;
+    let towerBlocks = [], currentBlock, tDirection = 2.5, tLoop, towerScore = 0;
     
     function openTowerGame() {
         document.getElementById('towerModal').style.display = 'flex';
@@ -219,18 +215,18 @@
         if (currentBlock.x <= 0 || currentBlock.x + currentBlock.w >= 260) tDirection *= -1;
         
         tCtx.fillStyle = "#0b132b"; tCtx.fillRect(0,0,260,280);
-        // Draw static stack
+        
         towerBlocks.forEach((b, i) => {
-            tCtx.fillStyle = i === 0 ? "#3b82f6" : `hsl(${(i * 25) % 360}, 70%, 60%)`;
+            tCtx.fillStyle = i === 0 ? "#3b82f6" : `hsl(${(i * 30) % 360}, 75%, 60%)`;
             tCtx.fillRect(b.x, b.y, b.w, b.h);
         });
-        // Draw moving block
+
         tCtx.fillStyle = "#38bdf8";
         tCtx.fillRect(currentBlock.x, currentBlock.y, currentBlock.w, currentBlock.h);
 
         tCtx.fillStyle = "#ffffff";
-        tCtx.font = "14px sans-serif";
-        tCtx.fillText("Height: " + towerScore, 10, 25);
+        tCtx.font = "bold 14px sans-serif";
+        tCtx.fillText("Tower Height: " + towerScore, 10, 25);
     }
 
     tCanvas.addEventListener('click', dropBlock);
@@ -239,12 +235,11 @@
         let diff = currentBlock.x - prev.x;
         
         if (Math.abs(diff) >= currentBlock.w) {
-            alert("💥 Tower Collapsed! Score Height: " + towerScore);
+            alert("💥 Tower Collapsed! Total Stack Height: " + towerScore);
             openTowerGame();
             return;
         }
 
-        // Trim block
         if (diff > 0) { currentBlock.w -= diff; }
         else { currentBlock.x = prev.x; currentBlock.w += diff; }
 
@@ -295,7 +290,7 @@
     function playTurn() {
         if (!isTurn) return;
         
-        // Player Roll
+        // Player Move
         let roll = Math.floor(Math.random() * 6) + 1;
         playerPos += roll;
         if (snakes[playerPos]) playerPos = snakes[playerPos];
@@ -303,7 +298,7 @@
 
         if (playerPos >= 100) {
             playerPos = 100; renderSnakesBoard();
-            setTimeout(() => alert("🎉 You beat the Bot to Tile 100!"), 100);
+            setTimeout(() => alert("🎉 Winner! You reached Tile 100 before the Bot!"), 100);
             return;
         }
 
@@ -311,7 +306,7 @@
         document.getElementById('rollBtn').disabled = true;
         renderSnakesBoard();
 
-        // Bot Turn Delay
+        // Bot Move
         setTimeout(() => {
             let bRoll = Math.floor(Math.random() * 6) + 1;
             botPos += bRoll;
@@ -326,10 +321,10 @@
                 document.getElementById('rollBtn').disabled = false;
                 renderSnakesBoard();
             }
-        }, 800);
+        }, 750);
     }
 
-    /* --- SNAKE GAME SYSTEM --- */
+    /* --- SNAKE ARCADE GAME --- */
     let canvas = document.getElementById("snakeCanvas"), ctx = canvas.getContext("2d");
     let snake, food, dx, dy, snakeLoop;
     function openSnake() {
@@ -365,7 +360,7 @@
         }
     });
 
-    /* --- IQ MEMORY TEST SYSTEM WITH IQ SCORES --- */
+    /* --- IQ TEST SYSTEM --- */
     let iqSeq = [], userSeq = [], iqLevel = 0;
     function openIQ() { document.getElementById('iqModal').style.display = 'flex'; iqSeq = []; iqLevel = 0; nextIQRound(); }
     function nextIQRound() {
